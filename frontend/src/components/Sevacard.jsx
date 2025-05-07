@@ -1,6 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Sevacard = ({ seva }) => {
+  const navigate = useNavigate();
+
+  const handleBookNow = () => {
+    navigate('/checkout');
+  };
+
   return (
     <div className="seva-card">
       <img src={seva.media} alt={seva.title} className="seva-image" />
@@ -18,7 +25,9 @@ const Sevacard = ({ seva }) => {
           <span className="market">₹{seva.marketPrice}</span>
           <span className="discounted">₹{seva.discountedPrice}</span>
         </div>
-        <button className="book-btn">Book Now</button>
+        <button className="book-btn" onClick={handleBookNow}>
+          Book Now
+        </button>
       </div>
     </div>
   );
