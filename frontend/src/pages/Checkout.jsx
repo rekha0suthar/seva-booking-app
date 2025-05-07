@@ -1,27 +1,28 @@
 import { useEffect, useState } from 'react';
-import Login from '../components/login';
+import Login from '../components/Login';
+import { useSelector } from 'react-redux';
 
-const Checkout = () => {
-  const [user, setUser] = useState(null);
+export default function Checkout() {
+  const user = useSelector((state) => state.user.data);
+  const verified = useSelector((state) => state.user.verified);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    const localUser = JSON.parse(localStorage.getItem('user'));
-    if (localUser) {
-      setUser(localUser);
+    if (user && verified) {
+      setLoggedIn(true);
     }
-  }, []);
+  }, [user, verified]);
+
   return (
-    <div className="checkout-cont">
-      {!user ? (
-        <>
-          <a href="/">Back</a>
-          <Login />
-        </>
+    <div className="checkout-container">
+      {!loggedIn ? (
+        <Login onSuccess={() => setLoggedIn(true)} />
       ) : (
-        <div>checkout</div>
+        <>
+          <h2>Checkout</h2>
+          {/* TODO: Items, address, and payment form */}
+        </>
       )}
     </div>
   );
-};
-
-export default Checkout;
+}
