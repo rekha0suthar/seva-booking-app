@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import sevaRoutes from './routes/sevaRoutes.js';
 import connectDB from './utils/db.js';
+import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 
@@ -18,5 +19,6 @@ connectDB();
 
 // apis endpoint
 app.use('/api/sevas', sevaRoutes);
+app.use('/api/users', userRoutes);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
