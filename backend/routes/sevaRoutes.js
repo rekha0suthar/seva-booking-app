@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import Seva from '../models/Seva';
-import { getSeva, getSevas } from '../controllers/seva';
+import { getSeva, getSevas } from '../controllers/seva.js';
 
 const router = Router();
 

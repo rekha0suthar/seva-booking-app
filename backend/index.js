@@ -1,8 +1,8 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import sevaRoutes from './routes/sevaRoutes';
+import sevaRoutes from './routes/sevaRoutes.js';
+import connectDB from './utils/db.js';
 
 dotenv.config();
 
@@ -13,11 +13,10 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/sevas', sevaRoutes);
+// mongodb connection
+connectDB();
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log(err));
+// apis endpoint
+app.use('/api/sevas', sevaRoutes);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

@@ -1,4 +1,4 @@
-import Seva from '../models/Seva';
+import Seva from '../models/Seva.js';
 
 // Method to fetch all sevas
 const getSevas = async (req, res) => {
