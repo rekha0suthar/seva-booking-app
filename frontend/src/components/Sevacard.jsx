@@ -18,6 +18,7 @@ const Sevacard = ({ seva }) => {
           <span className="market">₹{seva.marketPrice}</span>
           <span className="discounted">₹{seva.discountedPrice}</span>
         </div>
+        <button className="book-btn">Book Now</button>
       </div>
     </div>
   );
