@@ -3,8 +3,20 @@ import Seva from '../models/Seva.js';
 // Method to fetch all sevas
 const getSevas = async (req, res) => {
   try {
-    const sevas = await Seva.find();
-    res.status(200).json(sevas);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const skip = (page - 1) * limit;
+    const total = await Seva.countDocuments();
+    const sevas = await Seva.find().skip(skip).limit(limit);
+    res
+      .status(200)
+      .json({
+        sevas,
+        page,
+        totalPages: Math.ceil(total / limit),
+        totalSevas: total,
+      });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
