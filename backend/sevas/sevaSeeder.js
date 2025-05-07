@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import connectDB from '../utils/db.js';
 import Seva from '../models/Seva.js';
