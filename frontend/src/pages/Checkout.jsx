@@ -83,7 +83,9 @@ const Checkout = () => {
     const userId = localStorage.getItem('userId');
     if (userId) {
       setStep('user');
+      dispatch(fetchSevas()); // 👈 Fetch sevas when session is restored
     }
+
     if (user?.contact) {
       setUserDetails((prev) => ({ ...prev, number: user.contact }));
       setMobile(user.contact);
@@ -91,8 +93,6 @@ const Checkout = () => {
 
     const code = localStorage.getItem('sevaCode');
     if (code) fetchSeva(code);
-
-    dispatch(fetchSevas());
   }, [user, dispatch]);
 
   return (

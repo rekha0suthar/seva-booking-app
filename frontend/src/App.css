@@ -62,7 +62,7 @@ button:hover:not(:disabled),
 .checkout-container {
   display: flex;
   gap: 2rem;
-  max-width: 1200px;
+  max-width: max-content;
   margin: 5rem auto;
   padding: 2rem;
   background: #fff;
