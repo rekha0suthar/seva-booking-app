@@ -1,17 +1,17 @@
-// src/pages/Checkout.jsx
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItem, removeItem } from '../redux/cartSlice';
-import axios from 'axios';
-import Login from '../components/Login';
-import UserDetail from '../components/UserDetail';
-import Address from '../components/Address';
-import Payment from '../components/Payment';
 import { fetchSevas } from '../redux/sevaSlice';
+import axios from 'axios';
 
-export default function Checkout() {
+const Login = lazy(() => import('../components/Login'));
+const UserDetail = lazy(() => import('../components/UserDetail'));
+const Address = lazy(() => import('../components/Address'));
+const Payment = lazy(() => import('../components/Payment'));
+
+const Checkout = () => {
   const { sevas } = useSelector((state) => state.seva || []);
-  const cart = useSelector((state) => state.cart?.items || []);
+  const cart = useSelector((state) => state.cart.items || []);
   const user = useSelector((state) => state.user.data);
 
   const dispatch = useDispatch();
@@ -37,86 +37,76 @@ export default function Checkout() {
 
   const handleUser = async () => {
     try {
-      const res = await axios.post(
-        'http://localhost:5000/api/users',
-        {
-          contact: userDetails.number,
-          name: userDetails.name,
-          email: userDetails.email,
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-
+      const res = await axios.post('/users', {
+        contact: userDetails.number,
+        name: userDetails.name,
+        email: userDetails.email,
+      });
       localStorage.setItem('userId', res.data);
-
       setStep('address');
     } catch (err) {
-      console.error(err);
+      console.error('User creation failed', err);
     }
   };
 
   const handlePincodeCheck = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/address-by-pincode/${address.pincode}`
-      );
-      const data = await res.json();
-      if (res.ok) {
-        setAddress((prev) => ({ ...prev, city: data.city, state: data.state }));
+      const res = await axios.get(`/address-by-pincode/${address.pincode}`);
+      if (res.data.city && res.data.state) {
+        setAddress((prev) => ({
+          ...prev,
+          city: res.data.city,
+          state: res.data.state,
+        }));
         setPinError('');
       } else {
-        setPinError(data.error || 'Invalid pincode');
+        setPinError('Invalid pincode');
       }
     } catch (err) {
-      setPinError('Error fetching pincode info');
+      setPinError('Failed to fetch pincode data');
     }
   };
 
   const fetchSeva = async (code) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/sevas/${code}`);
+      const res = await axios.get(`/sevas/${code}`);
       const sevaData = res.data;
-
-      // Add to cart if not already present
-      const alreadyInCart = cart.some((item) => item.code === sevaData.code);
-      if (!alreadyInCart) {
+      if (!cart.find((item) => item.code === sevaData.code)) {
         dispatch(addItem(sevaData));
       }
     } catch (err) {
-      console.error(err);
+      console.error('Error fetching seva:', err);
     }
   };
 
   useEffect(() => {
-    if (user && user.contact) {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      setStep('user');
+    }
+    if (user?.contact) {
       setUserDetails((prev) => ({ ...prev, number: user.contact }));
       setMobile(user.contact);
     }
 
     const code = localStorage.getItem('sevaCode');
-    if (code) {
-      fetchSeva(code);
-    }
+    if (code) fetchSeva(code);
 
     dispatch(fetchSevas());
   }, [user, dispatch]);
 
   return (
     <div className="checkout-container two-column">
-      {step === 'login' && (
-        <div className="checkout-login">
+      {step === 'login' ? (
+        <Suspense fallback={<p>Loading login...</p>}>
           <Login onVerified={() => setStep('user')} />
-        </div>
-      )}
-
-      {step !== 'login' && (
+        </Suspense>
+      ) : (
         <>
           <div className="checkout-left">
             <h2>Available Sevas</h2>
             <div className="seva-scroll">
-              {sevas?.map((seva) => (
+              {sevas.map((seva) => (
                 <div key={seva.code} className="cart-item">
                   <p>
                     {seva.title} - ₹{seva.discountedPrice}
@@ -127,7 +117,6 @@ export default function Checkout() {
             </div>
 
             <h3>Selected Sevas</h3>
-
             {cart.map((item) => (
               <div key={item.code} className="cart-item">
                 <p>
@@ -144,30 +133,38 @@ export default function Checkout() {
 
           <div className="checkout-right">
             {step === 'user' && (
-              <UserDetail
-                userDetails={userDetails}
-                setUserDetails={setUserDetails}
-                mobile={mobile}
-                handleUser={handleUser}
-              />
+              <Suspense fallback={<p>Loading user details...</p>}>
+                <UserDetail
+                  userDetails={userDetails}
+                  setUserDetails={setUserDetails}
+                  mobile={mobile}
+                  handleUser={handleUser}
+                />
+              </Suspense>
             )}
 
             {step === 'address' && (
-              <Address
-                address={address}
-                setAddress={setAddress}
-                pinError={pinError}
-                handlePincodeCheck={handlePincodeCheck}
-                setStep={setStep}
-              />
+              <Suspense fallback={<p>Loading address form...</p>}>
+                <Address
+                  address={address}
+                  setAddress={setAddress}
+                  pinError={pinError}
+                  handlePincodeCheck={handlePincodeCheck}
+                  setStep={setStep}
+                />
+              </Suspense>
             )}
 
             {step === 'payment' && (
-              <Payment userDetails={userDetails} address={address} />
+              <Suspense fallback={<p>Loading payment...</p>}>
+                <Payment userDetails={userDetails} address={address} />
+              </Suspense>
             )}
           </div>
         </>
       )}
     </div>
   );
-}
+};
+
+export default Checkout;

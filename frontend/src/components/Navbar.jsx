@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const fetchUserData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/users/${userId}`);
+      const res = await axios.get(`/users/${userId}`);
       setUserInfo(res.data);
     } catch (err) {
       console.error('Failed to fetch user:', err);
@@ -21,10 +21,8 @@ const Navbar = () => {
 
   const fetchUserOrders = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/orders/latest`);
-      setLatestOrders(
-        res.data.filter((order) => order.userContact === userInfo?.contact)
-      );
+      const res = await axios.get(`/orders/${userId}/latest`);
+      setLatestOrders(res.data);
     } catch (err) {
       console.error('Failed to fetch orders:', err);
     }
@@ -58,10 +56,12 @@ const Navbar = () => {
           <li>
             <Link to="/checkout">Cart</Link>
           </li>
-          <li className="nav-user" onClick={handleUserClick}>
-            {' '}
-            👤 User
-          </li>
+          {userId && (
+            <li className="nav-user" onClick={handleUserClick}>
+              {' '}
+              👤 User
+            </li>
+          )}
         </ul>
       </nav>
       <div className="nav-user-wrapper">

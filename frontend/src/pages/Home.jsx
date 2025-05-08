@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSevas, incrementPage } from '../redux/sevaSlice';
-import Sevacard from '../components/Sevacard';
+
+const Sevacard = lazy(() => import('../components/Sevacard'));
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,23 +16,33 @@ const Home = () => {
     dispatch(incrementPage());
   };
 
-  if (loading) return <p>loading...</p>;
   return (
     <div className="home-container">
       <h1 className="home-title">Available Sevas</h1>
-      <div className="seva-grid">
-        {sevas.map((seva, index) => (
-          <Sevacard key={`${seva.code}-${index}`} seva={seva} />
-        ))}
-      </div>
-      {hasMore && !loading && (
-        <div className="view-more-cont">
-          <button onClick={handleViewMore} className="view-more-btn">
-            View More
-          </button>
-        </div>
+
+      {loading && page === 1 ? (
+        <p>Loading initial data...</p>
+      ) : (
+        <>
+          <div className="seva-grid">
+            <Suspense fallback={<p>Loading cards...</p>}>
+              {sevas.map((seva, index) => (
+                <Sevacard key={`${seva.code}-${index}`} seva={seva} />
+              ))}
+            </Suspense>
+          </div>
+
+          {hasMore && (
+            <div className="view-more-cont">
+              <button onClick={handleViewMore} className="view-more-btn">
+                View More
+              </button>
+            </div>
+          )}
+
+          {loading && page > 1 && <p className="loading">Loading more...</p>}
+        </>
       )}
-      {loading && <p className="loading">Loading...</p>}
     </div>
   );
 };
