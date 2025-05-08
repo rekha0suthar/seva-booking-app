@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 const Sevacard = ({ seva }) => {
   const navigate = useNavigate();
 
-  const handleBookNow = () => {
+  const handleBookNow = (code) => {
+    localStorage.setItem('sevaCode', code);
     navigate('/checkout');
   };
 
@@ -25,7 +26,7 @@ const Sevacard = ({ seva }) => {
           <span className="market">₹{seva.marketPrice}</span>
           <span className="discounted">₹{seva.discountedPrice}</span>
         </div>
-        <button className="book-btn" onClick={handleBookNow}>
+        <button className="book-btn" onClick={() => handleBookNow(seva.code)}>
           Book Now
         </button>
       </div>

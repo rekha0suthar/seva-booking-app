@@ -1,36 +1,15 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const userSchema = new Schema(
-  {
-    contact: {
-      type: String,
-      required: true,
-      unique: true,
-      match: [/^[6-9]\d{9}$/, 'Please enter a valid 10-digit mobile number'],
-    },
-    countryCode: {
-      type: String,
-      required: true,
-      match: [/^\\+[1-9]{1}[0-9]{1,2}$/, 'Invalid country code format'],
-    },
-    name: {
-      type: String,
-      required: function () {
-        return !this.verified;
-      },
-    },
-    email: {
-      type: String,
-    },
-    verified: {
-      type: Boolean,
-      default: false,
-    },
+const userSchema = new mongoose.Schema({
+  contact: {
+    type: String,
+    required: true,
+    match: [/^[6-9]\d{9}$/, 'Invalid mobile number'],
+    unique: true,
   },
-  {
-    timestamps: true,
-  }
-);
+  name: String,
+  email: String,
+  verified: { type: Boolean, default: false },
+});
 
-const User = model('User', userSchema);
-export default User;
+export default mongoose.model('User', userSchema);

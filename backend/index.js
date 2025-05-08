@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import sevaRoutes from './routes/sevaRoutes.js';
 import connectDB from './utils/db.js';
 import userRoutes from './routes/userRoutes.js';
+import addressRoutes from './routes/addressRoutes.js';
 
 dotenv.config();
 
@@ -20,5 +21,6 @@ connectDB();
 // apis endpoint
 app.use('/api/sevas', sevaRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api', addressRoutes);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
