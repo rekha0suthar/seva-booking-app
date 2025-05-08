@@ -32,7 +32,7 @@ export default function Login({ onVerified }) {
       dispatch(saveUser({ contact: mobile }));
 
       const res = await axios.post(
-        'http://localhost:5000/api/users',
+        '/users',
         { contact: mobile },
         { headers: { 'Content-Type': 'application/json' } }
       );

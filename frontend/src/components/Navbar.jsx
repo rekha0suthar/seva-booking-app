@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const fetchUserData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/users/${userId}`);
+      const res = await axios.get(`/users/${userId}`);
       setUserInfo(res.data);
     } catch (err) {
       console.error('Failed to fetch user:', err);
@@ -21,9 +21,7 @@ const Navbar = () => {
 
   const fetchUserOrders = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/orders/${userId}/latest`
-      );
+      const res = await axios.get(`/orders/${userId}/latest`);
       setLatestOrders(res.data);
     } catch (err) {
       console.error('Failed to fetch orders:', err);

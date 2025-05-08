@@ -45,13 +45,13 @@ const Payment = ({ userDetails, address }) => {
 
     try {
       // 1. Save address
-      await axios.post('http://localhost:5000/api/address', {
+      await axios.post('/address', {
         ...address,
         userContact: userDetails.number,
       });
 
       // 2. Create order
-      const res = await axios.post('http://localhost:5000/api/orders', {
+      const res = await axios.post('/orders', {
         items: selectedItems,
         address,
         userContact: userDetails.number,

@@ -5,9 +5,7 @@ export const fetchSevas = createAsyncThunk(
   'seva/fetchSevas',
   async ({ page, limit }, { rejectWithValue }) => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/sevas?page=${page}&limit=${limit}`
-      );
+      const res = await axios.get(`/sevas?page=${page}&limit=${limit}`);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);

@@ -37,7 +37,7 @@ const Checkout = () => {
 
   const handleUser = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/users', {
+      const res = await axios.post('/users', {
         contact: userDetails.number,
         name: userDetails.name,
         email: userDetails.email,
@@ -51,9 +51,7 @@ const Checkout = () => {
 
   const handlePincodeCheck = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/address-by-pincode/${address.pincode}`
-      );
+      const res = await axios.get(`/address-by-pincode/${address.pincode}`);
       if (res.data.city && res.data.state) {
         setAddress((prev) => ({
           ...prev,
@@ -71,7 +69,7 @@ const Checkout = () => {
 
   const fetchSeva = async (code) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/sevas/${code}`);
+      const res = await axios.get(`/sevas/${code}`);
       const sevaData = res.data;
       if (!cart.find((item) => item.code === sevaData.code)) {
         dispatch(addItem(sevaData));
