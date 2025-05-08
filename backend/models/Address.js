@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const addressSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  userContact: { type: String, required: true }, // link to user by contact
   type: { type: String, enum: ['Home', 'Work', 'Other'], default: 'Home' },
   addrLine1: String,
   addrLine2: String,
@@ -9,6 +9,7 @@ const addressSchema = new mongoose.Schema({
   city: String,
   state: String,
   verified: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now },
 });
 
 export default mongoose.model('Address', addressSchema);

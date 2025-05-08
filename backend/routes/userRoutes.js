@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
       await user.save(); //  update the user
     }
 
-    res.status(201).json(user);
+    res.status(201).json(user._id);
   } catch (err) {
     console.error('User creation error:', err.message);
     res.status(400).json({ error: 'User creation failed' });

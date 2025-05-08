@@ -37,7 +37,7 @@ export default function Checkout() {
 
   const handleUser = async () => {
     try {
-      await axios.post(
+      const res = await axios.post(
         'http://localhost:5000/api/users',
         {
           contact: userDetails.number,
@@ -48,6 +48,8 @@ export default function Checkout() {
           headers: { 'Content-Type': 'application/json' },
         }
       );
+
+      localStorage.setItem('userId', res.data);
 
       setStep('address');
     } catch (err) {
