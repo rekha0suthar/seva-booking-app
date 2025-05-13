@@ -1,4 +1,5 @@
 import Order from '../models/Order.js';
+import User from '../models/User.js';
 
 const addOrder = async (req, res) => {
   const { items, address, userContact } = req.body;
