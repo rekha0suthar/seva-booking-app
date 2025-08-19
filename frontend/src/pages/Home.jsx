@@ -1,6 +1,6 @@
 import React, { useEffect, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSevas, incrementPage, resetSevas } from '../redux/sevaSlice';
+import { fetchSevas, incrementPage, resetSevas, clearError } from '../redux/sevaSlice';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 
@@ -11,11 +11,18 @@ const Home = () => {
   const { sevas, loading, error, page, hasMore } = useSelector((state) => state.seva);
 
   useEffect(() => {
-    // Only fetch sevas if they're not already loaded
     if (sevas.length === 0) {
       dispatch(fetchSevas({ page: 1, limit: 5 }));
     }
   }, [dispatch, sevas.length]);
+
+  // Fetch more sevas when page changes (for pagination)
+  useEffect(() => {
+    if (page > 1 && sevas.length > 0) {
+      console.log('Home - Fetching more sevas for page:', page);
+      dispatch(fetchSevas({ page, limit: 5 }));
+    }
+  }, [page, dispatch]);
 
   const handleViewMore = () => {
     if (!loading && hasMore) {
@@ -24,6 +31,7 @@ const Home = () => {
   };
 
   const handleRetry = () => {
+    dispatch(clearError());
     dispatch(fetchSevas({ page: 1, limit: 5 }));
   };
 
@@ -74,6 +82,16 @@ const Home = () => {
           {loading && page > 1 && (
             <div className="loading-more">
               <Loading text="Loading more sevas..." />
+            </div>
+          )}
+
+          {error && page > 1 && (
+            <div className="error-more">
+              <Error 
+                message={error} 
+                onRetry={handleRetry}
+                className="load-more-error"
+              />
             </div>
           )}
         </>

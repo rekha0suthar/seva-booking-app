@@ -894,6 +894,17 @@ select {
   padding: 2rem;
 }
 
+.error-more {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.load-more-error {
+  display: inline-block;
+  max-width: 400px;
+}
+
 .view-more-container {
   text-align: center;
   padding: 2rem;
