@@ -83,9 +83,7 @@ button:hover:not(:disabled),
   padding-right: 2rem;
 }
 
-.checkout-right {
-  padding-left: 2rem;
-}
+
 
 .seva-scroll {
   max-height: 240px;
@@ -354,4 +352,664 @@ select {
   .checkout-right {
     padding-left: 0;
   }
+}
+
+/* Loading Component */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.loading-small .loading-spinner {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+.loading-large .loading-spinner {
+  width: 60px;
+  height: 60px;
+  border-width: 6px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Error Component */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.error-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.error-message {
+  color: #dc2626;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.error-retry-btn {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.error-retry-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* Form Components */
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-input.disabled {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Button Components */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.btn-secondary {
+  background-color: #6b7280;
+  color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #4b5563;
+}
+
+/* Validation Errors */
+.validation-error {
+  
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.validation-error p {
+  color: #dc2626;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* User Detail Component */
+.user-detail-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Address Component */
+.address-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Payment Component */
+.payment-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.payment-methods {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.payment-method:hover {
+  background-color: #f9fafb;
+}
+
+.card-payment,
+.upi-payment {
+  margin-bottom: 1rem;
+}
+
+.order-summary {
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+.order-summary h4 {
+  margin: 0 0 0.5rem 0;
+}
+
+.order-summary p {
+  margin: 0;
+  font-weight: 600;
+  color: #059669;
+}
+
+/* Login Component */
+.checkout-login {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.login-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.otp-info {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Navbar Improvements */
+.navbar-brand {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.navbar-brand:hover {
+  color: #3498db;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #3498db;
+}
+
+.cart-badge {
+  background-color: #ef4444;
+  color: white;
+  border-radius: 50%;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+  margin-left: 0.5rem;
+}
+
+.user-dropdown {
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  min-width: 250px;
+}
+
+.user-info {
+  margin-bottom: 1rem;
+}
+
+.user-name,
+.user-email,
+.user-contact {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.latest-orders h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.no-orders,
+.order-item {
+  margin: 0.25rem 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.logout-btn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.logout-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Checkout Improvements */
+.checkout-full-width {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  background-color: white;
+}
+
+.cart-item.selected {
+  background-color: #f0f9ff;
+  border-color: #3498db;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.item-price {
+  margin: 0.25rem 0 0 0;
+  color: #059669;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.add-btn,
+.remove-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s ease;
+}
+
+.add-btn {
+  background-color: #10b981;
+  color: white;
+}
+
+.add-btn:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.add-btn:disabled {
+  background-color: #6b7280;
+  cursor: not-allowed;
+}
+
+.remove-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.remove-btn:hover {
+  background-color: #dc2626;
+}
+
+.cart-total {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.cart-total h4 {
+  margin: 0;
+  color: #059669;
+}
+
+.no-items {
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Seva Card Improvements */
+.seva-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.seva-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.seva-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.seva-content {
+  padding: 1rem;
+}
+
+.seva-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.seva-desc {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0 0 1rem 0;
+}
+
+.seva-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.seva-tag {
+  background-color: #e5e7eb;
+  color: #374151;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.seva-pricing {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.market-price {
+  color: #6b7280;
+  text-decoration: line-through;
+  font-size: 0.9rem;
+}
+
+.discounted-price {
+  color: #059669;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.discount-badge {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.book-btn {
+  width: 100%;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.book-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .checkout-container.two-column {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .payment-methods {
+    flex-direction: column;
+  }
+  
+  .seva-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Loading More */
+.loading-more {
+  text-align: center;
+  padding: 2rem;
+}
+
+.view-more-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.view-more-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-more-btn:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.view-more-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* No Sevas */
+.no-sevas {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+}
+
+/* Profile Error */
+.profile-error {
+  margin: 0.5rem 0;
+}
+
+/* Pincode Error Handling */
+.pincode-error-message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.error-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.clear-error-btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  background-color: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clear-error-btn:hover {
+  background-color: #4b5563;
+}
+
+.skip-validation-btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.skip-validation-btn:hover {
+  background-color: #2980b9;
+}
+
+.pincode-help-text {
+  color: #6b7280;
+  font-size: 0.8rem;
+  margin: 0.25rem 0 0 0;
+  font-style: italic;
+}
+
+/* Pincode Error */
+.pincode-error {
+  margin: 0.5rem 0;
+}
+
+/* Payment Error */
+.payment-error {
+  margin: 0.5rem 0;
+}
+
+/* Home Error */
+.home-error {
+  margin: 2rem auto;
+  max-width: 400px;
+}
+
+/* Checkout Error */
+.checkout-error {
+  margin: 2rem auto;
+  max-width: 400px;
+}
+
+/* Login Error */
+.login-error {
+  margin: 0.5rem 0;
+}
+
+/* User Detail Error */
+.user-detail-error {
+  margin: 0.5rem 0;
 }
